@@ -26,25 +26,28 @@ Use the institutional library (e.g. [NCSU Library](https://www.lib.ncsu.edu/#art
 
 1.  Provide an APA citation for your selected study.
 
-    -   
+    -   Moon, J., Lee, S., & Xu, X. (2021). Exploring pre-service teachers’ technology-integration belief and scientific inquiry in a teacher-development course. International Journal of Technology and Design Education, 1-22.
 
 2.  How does the visualization address research questions?
 
-    -   
+    - Word Cloud
+    - Word‑concordance analysis
+    - Similarity score estimation
+    
 
 Draft a research question for a population you may be interested in studying, or that would be of interest to educational researchers, and that would require the collection of text data and answer the following questions:
 
 1.  What text data would need to be collected?
 
-    -   
+    -   Conversation Data
 
 2.  For what reason would text data need to be collected in order to address this question?
 
-    -   
+    -   Needs to conduct correspondance of conversation
 
 3.  Explain the analytical level at which these text data would need to be collected and analyzed.
 
-    -   
+    -   I am intersted in investating how youg female students share their ideas and develop their engagemnt over a workshop.
 
 ### Part II: Data Product
 
@@ -54,8 +57,41 @@ I highly recommend creating a new R script in your lab-1 folder to complete this
 
 ```{r, my-data-product}
 # YOUR FINAL CODE HERE
+library(tidyverse)
+library(tidytext)
+library(wordcloud2)
+library(kableExtra)
 
+opd_survey <- read_csv("data/opd_survey.csv") # read in data
 
+opd_tidy <- opd_survey %>%
+    select(Role, `Resource...6`, Q21) %>%
+    rename(text = Q21,
+           Resource = "Resource...6") %>%
+    slice(-1, -2) %>%
+    na.omit() %>%
+    filter(Role == "Teacher") %>%
+    unnest_tokens(word, text) #unnest
+
+opd_clean <- anti_join(opd_tidy, stop_words) #remove stop words
+
+opd_counts <- opd_clean %>% 
+  count(word, sort = TRUE)
+
+head(opd_counts) %>%
+  kable()
+
+test <- data.frame("word" = c("test1", "test2"))
+
+opd_clean_new <- anti_join(opd_clean, test)
+
+opd_counts_new <- opd_clean_new %>% 
+  count(word, sort = TRUE)
+
+head(opd_counts.2) %>%
+  kable()
+
+wordcloud2(opd_counts_new)
 ```
 
 ### Knit & Submit
