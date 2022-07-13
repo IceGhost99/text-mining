@@ -399,7 +399,7 @@ respectively pertain to educator role, OPD resource they are evaluating,
 and, as illustrated by the second row,
 
 ```{r}
-opd_selected <- select(opd_survey, Role, Resource, Q21)
+opd_selected <- select(opd_survey, Role, Resource...6, Q21)
 ```
 
 Notice that like the bulk of all tidyverse functions, the first input
