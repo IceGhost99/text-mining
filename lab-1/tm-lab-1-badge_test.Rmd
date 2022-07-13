@@ -88,7 +88,7 @@ opd_clean_new <- anti_join(opd_clean, test)
 opd_counts_new <- opd_clean_new %>% 
   count(word, sort = TRUE)
 
-head(opd_counts.2) %>%
+head(opd_counts_new) %>%
   kable()
 
 wordcloud2(opd_counts_new)
